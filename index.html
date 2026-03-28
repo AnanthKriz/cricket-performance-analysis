@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Comprehensive T20 World Cup 2022 Analytics Dashboard with detailed statistics and insights">
+    <meta name="author" content="Nima">
+    <meta name="keywords" content="T20, World Cup, Cricket, Analytics, Dashboard, Statistics">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="T20 World Cup 2022 Analysis">
+    <meta property="og:description" content="Interactive analytics dashboard for T20 World Cup 2022">
+    <meta property="og:type" content="website">
+    
+    <title>T20 World Cup 2022 | Analytics Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #e94560;
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        .social-link i {
+            color: var(--text-light);
+            font-size: 1.3rem;
+        }
+
+        .social-link.github:hover {
+            background: #333;
+        }
+
+        .social-link.linkedin:hover {
+            background: #0077b5;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 1rem 0 0 0;
+            text-align: center;
+        }
+
+        .creator-name {
+            color: var(--gradient-start);
+            font-weight: 600;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .dashboard-container {
+                padding: 0 1rem;
+                margin: 2rem auto;
+            }
+            
+            .dashboard-card {
+                padding: 1rem;
+            }
+            
+            .footer-content {
+                gap: 1rem;
+            }
+        }
+
+        /* Accessibility */
+        .social-link:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="title">
+                <i class="fas fa-trophy me-3"></i>T20 World Cup 2022
+            </h1>
+            <p class="subtitle">Comprehensive Analytics Dashboard | Performance Insights & Statistics</p>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-container">
+        <div class="dashboard-card">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="h4 mb-0">
+                        <i class="fas fa-chart-line me-2"></i>Interactive Analytics
+                    </h2>
+                </div>
+            </div>
+            
+            <div class="iframe-container">
+                <iframe 
+                    title="T20 World Cup 2022 Analysis Dashboard"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiOTc3N2ZiYzItYjAyNS00MjNlLWJkNmItMmM1ODc2OTVmZDBkIiwidCI6IjQzMmNjNWJlLTMxMTEtNGNjYy1iNzk2LTUxYzhjMGQ4YjViYSJ9&pageName=ReportSection6b44667583e1e86c2b08"
+                    allowFullScreen="true"
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-content">
+                
+                <a href="https://www.linkedin.com/in/nima" 
+                   class="social-link linkedin" 
+                   title="Connect on LinkedIn"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            
+            <p class="footer-text">
+                Crafted with <i class="fas fa-heart text-danger"></i> by 
+                <span class="creator-name">Nima</span>
+                &copy; <span id="year"></span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    
+    <!-- Custom Scripts -->
+    <script>
+        // Update copyright year dynamically
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Add loading state for iframe
+        document.querySelector('iframe').addEventListener('load', function() {
+            this.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
