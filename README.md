@@ -2,7 +2,7 @@
 
 Created a Power BI Dashboard which helps to review and compare performances of all the players in tournament. The dashboard also enables us to select best eleven of the tournament based on their performance based on some selection criteria
 
-app link: https://aswinbct303.github.io/nima
+app link: https://cricket-performance-analysis-nima.vercel.app
 
 ## Steps:
 - ### Data Collection:
